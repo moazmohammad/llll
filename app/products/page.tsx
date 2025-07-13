@@ -27,13 +27,12 @@ import { useToast } from "@/hooks/use-toast"
 
 export default function ProductsPage() {
   const searchParams = useSearchParams()
-  const categoryParam = searchParams.get("category")
 
   const [products, setProducts] = useState<Product[]>([])
   const [cart, setCart] = useState<CartItem[]>([])
   const [categories, setCategories] = useState(getCategories())
   const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState(categoryParam || "الكل")
+  const [selectedCategory, setSelectedCategory] = useState("الكل")
   const [selectedSubcategory, setSelectedSubcategory] = useState("الكل")
   const [priceRange, setPriceRange] = useState([0, 200])
   const [sortBy, setSortBy] = useState("الأحدث")
@@ -45,6 +44,12 @@ export default function ProductsPage() {
   const { toast } = useToast()
 
   useEffect(() => {
+    // Handle category parameter from URL
+    const categoryParam = searchParams.get("category")
+    if (categoryParam) {
+      setSelectedCategory(categoryParam)
+    }
+
     const loadData = () => {
       setProducts(getProducts())
       setCart(getCart())
@@ -62,7 +67,7 @@ export default function ProductsPage() {
       window.removeEventListener("productsUpdated", handleProductsUpdate)
       window.removeEventListener("cartUpdated", handleCartUpdate)
     }
-  }, [])
+  }, [searchParams])
 
   // استبدال دالة addToCart
   const addToCart = (product: Product) => {
