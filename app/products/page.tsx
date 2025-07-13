@@ -45,10 +45,6 @@ export default function ProductsPage() {
   const { toast } = useToast()
 
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  useEffect(() => {
     if (!isMounted) return
     
     // Handle category parameter from URL
@@ -74,7 +70,6 @@ export default function ProductsPage() {
       window.removeEventListener("productsUpdated", handleProductsUpdate)
       window.removeEventListener("cartUpdated", handleCartUpdate)
     }
-  }, [searchParams, isMounted])
 
   // استبدال دالة addToCart
   const addToCart = (product: Product) => {
