@@ -27,6 +27,7 @@ import { useToast } from "@/hooks/use-toast"
 
 export default function ProductsPage() {
   const searchParams = useSearchParams()
+  const [isMounted, setIsMounted] = useState(false)
 
   const [products, setProducts] = useState<Product[]>([])
   const [cart, setCart] = useState<CartItem[]>([])
@@ -44,6 +45,12 @@ export default function ProductsPage() {
   const { toast } = useToast()
 
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isMounted) return
+    
     // Handle category parameter from URL
     const categoryParam = searchParams.get("category")
     if (categoryParam) {
@@ -67,7 +74,7 @@ export default function ProductsPage() {
       window.removeEventListener("productsUpdated", handleProductsUpdate)
       window.removeEventListener("cartUpdated", handleCartUpdate)
     }
-  }, [searchParams])
+  }, [searchParams, isMounted])
 
   // استبدال دالة addToCart
   const addToCart = (product: Product) => {
