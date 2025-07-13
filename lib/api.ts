@@ -3,8 +3,8 @@ import { Product, CartItem, Order, User, Category, ForumPost, Coupon, Notificati
 
 // إعدادات JSONBin.io
 const API_BASE_URL = 'https://api.jsonbin.io/v3'
-const BIN_ID = '676b8e4ead19ca34f8c8f8a0' // معرف المخزن
-const API_KEY = '$2a$10$8vQzKjGxLHqY.8Qz5Qz5QuKjGxLHqY.8Qz5Qz5QuKjGxLHqY.8Qz5Q' // مفتاح API
+const BIN_ID = process.env.NEXT_PUBLIC_JSONBIN_ID || 'demo_bin_id' // معرف المخزن
+const API_KEY = process.env.NEXT_PUBLIC_JSONBIN_API_KEY || 'demo_api_key' // مفتاح API
 
 interface DatabaseSchema {
   products: Product[]

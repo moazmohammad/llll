@@ -103,7 +103,7 @@ export default function MenusManagement() {
     setFormData({
       name: menu.name,
       url: menu.url,
-      parentId: menu.parentId || "",
+      parentId: menu.parentId || "none",
       order: menu.order.toString(),
       isActive: menu.isActive,
     })
